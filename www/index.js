@@ -1,12 +1,22 @@
 var app = angular.module("log", []);
 app.controller("logCtr", function ($scope, $http) {
     $scope.project = "openapi";
-    $scope.filePath = "";
-    $scope.len = 10;
+    $scope.filePath = "/home/awesome/out.log";
+    $scope.len = 100;
+    $scope.logJsons = [];
     $scope.initData = function () {
         $http.get("/logs?len="+$scope.len+"&name="+$scope.project+"&path="+$scope.filePath, {})
             .success(function (resp) {
                 $scope.logs = resp;
+
+                var logStr = $scope.logs;
+                var tmp = logStr.match(/\{"level":.*"\}/g);
+                if (tmp){
+                    for(var i=0;i<tmp.length;i++){
+                        var str = JSON.parse(tmp[i]);
+                        $scope.logJsons.push(str)
+                    }
+                }
             });
     };
     $scope.initData();
