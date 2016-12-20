@@ -12,7 +12,7 @@ app.controller("logCtr", function ($scope, $http) {
                 var logStr = $scope.logs;
                 var tmp = logStr.match(/\{"level":.*"\}/g);
                 if (tmp){
-                    for(var i=0;i<tmp.length;i++){
+                    for(var i=tmp.length-1;i>=0;i--){
                         var str = JSON.parse(tmp[i]);
                         $scope.logJsons.push(str)
                     }
