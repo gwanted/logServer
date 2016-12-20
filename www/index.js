@@ -4,24 +4,36 @@ app.controller("logCtr", function ($scope, $http) {
     $scope.filePath = "";
     $scope.len = 100;
     $scope.logJsons = [];
-    $scope.initData = function () {
+    var logsss = [];
+    $scope.initData = function (cb) {
         $http.get("/logs?len="+$scope.len+"&name="+$scope.project+"&path="+$scope.filePath, {})
             .success(function (resp) {
-                $scope.logs = resp;
+                logsss=[];
+                if (resp.code) {
 
-                var logStr = $scope.logs;
-                var tmp = logStr.match(/\{"level":.*"\}/g);
-                if (tmp){
-                    for(var i=tmp.length-1;i>=0;i--){
-                        var str = JSON.parse(tmp[i]);
-                        $scope.logJsons.push(str)
+                }else {
+                    $scope.logs = resp;
+
+                    var logStr = $scope.logs;
+                    var tmp = logStr.match(/\{"level":.*"\}/g);
+                    if (tmp) {
+                        for (var i = tmp.length - 1; i >= 0; i--) {
+                            var str = JSON.parse(tmp[i]);
+                            logsss.push(str)
+                        }
                     }
+                    if (cb)cb();
+                    setTimeout(function () {
+                        $scope.initData(function () {
+                            $scope.logJsons=logsss;
+                            // $scope.$apply();
+                        });
+                    }, 5000);
                 }
-                setTimeout(function () {
-                    $scope.initData();
-                },5000);
             });
     };
-    $scope.initData();
+    $scope.initData(function () {
+        $scope.logJsons=logsss;
+    });
 });
 
