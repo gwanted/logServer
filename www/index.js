@@ -17,6 +17,9 @@ app.controller("logCtr", function ($scope, $http) {
                         $scope.logJsons.push(str)
                     }
                 }
+                setTimeout(function () {
+                    $scope.initData();
+                },5000);
             });
     };
     $scope.initData();
