@@ -25,11 +25,8 @@
                 <th>level</th>
                 <th>method</th>
                 <th>msg</th>
-                <th>parentSpanId</th>
-                <th>path</th>
-                <th>spanId</th>
-                <th>traceId</th>
                 <th>userAgent</th>
+                <th>path</th>
             </tr>
             <tr ng-repeat="logJson in logJsons">
                 <td>{{logJson.time}}</td>
@@ -40,12 +37,8 @@
                 <td>{{logJson.level}}</td>
                 <td>{{logJson.method}}</td>
                 <td>{{logJson.msg}}</td>
-                <td>{{logJson.parentSpanId}}</td>
-                <td>{{logJson.path}}</td>
-                <td>{{logJson.spanId}}</td>
-
-                <td>{{logJson.traceId}}</td>
                 <td>{{logJson.userAgent}}</td>
+                <td>{{logJson.path}}</td>
             </tr>
         </table>
     </div>
