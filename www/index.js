@@ -4,6 +4,7 @@ app.controller("logCtr", function ($scope, $http) {
     $scope.filePath = "";
     $scope.len = 100;
     $scope.logJsons = [];
+    $scope.autoRefreshTime = 5;
     var logsss = [];
     $scope.initData = function (cb) {
         $http.get("/logs?len="+$scope.len+"&name="+$scope.project+"&path="+$scope.filePath, {})
@@ -28,7 +29,7 @@ app.controller("logCtr", function ($scope, $http) {
                             $scope.logJsons=logsss;
                             // $scope.$apply();
                         });
-                    }, 5000);
+                    }, $scope.autoRefreshTime*1000);
                 }
             });
     };
