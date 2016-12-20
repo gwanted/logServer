@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="log">
+<head>
+    <meta charset="UTF-8">
+    <title>LOGS</title>
+    <script type="text/javascript" src="lib/angular.min.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+</head>
+<body ng-controller="logCtr" style="width: 1200px;padding: 25px 25px;">
+    <div><input type="text" ng-model="project" ng-change="initData()"></div>
+    <div><input type="number" ng-model="len" ng-change="initData()"></div>
+    <div style="line-height:30px;display: inline-block;width:1300px;word-wrap:break-word;padding: 10px;">
+        <span>{{logs}}</span>
+    </div>
+</body>
+</html>
