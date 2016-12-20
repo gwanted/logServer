@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"encoding/json"
 	"io"
+	"os"
 )
 
 func ReadLog(w http.ResponseWriter, r *http.Request){
@@ -19,7 +20,26 @@ func ReadLog(w http.ResponseWriter, r *http.Request){
 		length = 100
 	}
 
-	cmd := exec.Command("/bin/sh", "-c", fmt.Sprintf("tail -n %d /home/awesome/out.log",length))
+	name := r.Form.Get("name")
+	if name == "" {
+		ReturnResult(w,503,"name should not be null",nil)
+		return
+	}
+	path := r.Form.Get("path")
+	logPath := ""
+	if path!= "" {
+		logPath = path
+	}else{
+		logPath = "/mnt/log/abo/new/"+name+"/out.log"
+	}
+
+	_, err := os.Stat(logPath)
+	if err != nil {
+		ReturnResult(w,503,"file not exist!",nil)
+		return
+	}
+
+	cmd := exec.Command("/bin/sh", "-c", fmt.Sprintf("tail -n %d %s",length,logPath))
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		ReturnResult(w,503,"StdoutPipe: " + err.Error(),nil)
