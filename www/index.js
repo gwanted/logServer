@@ -7,7 +7,7 @@ app.controller("logCtr", function ($scope, $http) {
     $scope.logJsons = [];
     $scope.autoRefreshTime = 5;
     var logsss = [];
-    $scope.initData = function (cb) {
+    $scope.initData = function () {
         $http.get("/logs?len="+$scope.len+"&name="+$scope.project+"&path="+$scope.filePath+"&key="+$scope.keyword, {})
             .success(function (resp) {
                 logsss=[];
@@ -18,7 +18,6 @@ app.controller("logCtr", function ($scope, $http) {
                     var tmp = logStr.match(/\{"level":.*\}/g);
                     if (tmp) {
                         for (var i = tmp.length - 1; i >= 0; i--) {
-                            console.log(tmp[i]);
                             var str = JSON.parse(tmp[i]);
                             logsss.push(str)
                         }
