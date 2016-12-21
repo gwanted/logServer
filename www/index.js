@@ -1,40 +1,40 @@
 var app = angular.module("log", []);
 app.controller("logCtr", function ($scope, $http) {
     $scope.project = "openapi";
-    $scope.filePath = "/home/awesome/out.log";
-    $scope.len = 100;
+    $scope.filePath = "";
+    $scope.len = 300;
+    $scope.keyword = "";
     $scope.logJsons = [];
     $scope.autoRefreshTime = 5;
     var logsss = [];
     $scope.initData = function (cb) {
-        $http.get("/logs?len="+$scope.len+"&name="+$scope.project+"&path="+$scope.filePath, {})
+        $http.get("/logs?len="+$scope.len+"&name="+$scope.project+"&path="+$scope.filePath+"&key="+$scope.keyword, {})
             .success(function (resp) {
                 logsss=[];
-                if (resp.code) {
-
-                }else {
-                    $scope.logs = resp;
+                if (resp.code==200) {
+                    $scope.logs = resp.data;
 
                     var logStr = $scope.logs;
-                    var tmp = logStr.match(/\{"level":.*"\}/g);
+                    var tmp = logStr.match(/\{"level":.*\}/g);
                     if (tmp) {
                         for (var i = tmp.length - 1; i >= 0; i--) {
+                            console.log(tmp[i]);
                             var str = JSON.parse(tmp[i]);
                             logsss.push(str)
                         }
                     }
-                    if (cb)cb();
+                    $scope.logJsons=logsss;
                     setTimeout(function () {
-                        $scope.initData(function () {
-                            $scope.logJsons=logsss;
-                            // $scope.$apply();
-                        });
+                        $scope.initData();
                     }, $scope.autoRefreshTime*1000);
+                }else {
+                    console.log(resp.msg)
                 }
+            })
+            .error(function (resp) {
+                console.log(resp)
             });
     };
-    $scope.initData(function () {
-        $scope.logJsons=logsss;
-    });
+    $scope.initData();
 });
 

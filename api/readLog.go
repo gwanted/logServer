@@ -33,13 +33,22 @@ func ReadLog(w http.ResponseWriter, r *http.Request){
 		logPath = "/mnt/log/abo/new/"+name+"/out.log"
 	}
 
+	key := r.Form.Get("key")
+	command:=""
+	if key == "" {
+		command = fmt.Sprintf("tail -n %d %s",length,logPath)
+	}else{
+		command = fmt.Sprintf(`tail -n %d %s | grep "%s" `,length,logPath,key)
+	}
+	fmt.Println(command)
+
 	_, err := os.Stat(logPath)
 	if err != nil {
-		ReturnResult(w,503,"file not exist!",nil)
+		ReturnResult(w,404,"file not exist!",nil)
 		return
 	}
 
-	cmd := exec.Command("/bin/sh", "-c", fmt.Sprintf("tail -n %d %s",length,logPath))
+	cmd := exec.Command("/bin/sh", "-c", command)
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		ReturnResult(w,503,"StdoutPipe: " + err.Error(),nil)
@@ -64,11 +73,12 @@ func ReadLog(w http.ResponseWriter, r *http.Request){
 	}
 
 	if err := cmd.Wait(); err != nil {
-		ReturnResult(w,503,"Wait: "+err.Error(),nil)
+		ReturnResult(w,503,"Wait: no found "+err.Error(),nil)
 		return
 	}
 
-	w.Write(bytes)
+	//w.Write(bytes)
+	ReturnResult(w,200,"success",string(bytes))
 }
 
 

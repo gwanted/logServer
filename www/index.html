@@ -28,6 +28,7 @@
 <body ng-controller="logCtr" style="padding: 25px 25px;">
     <div style="display: inline-block">project name:&nbsp;<input class="input-sm" type="text" ng-model="project"/></div>
     <div style="display: inline-block;margin-left: 10px;">log location:&nbsp;<input class="input-sm" type="text" ng-model="filePath" placeholder="set it blank if you don't know the location"></div>
+    <div style="display: inline-block;margin-left: 10px;">grep keyword:&nbsp;<input class="input-sm" type="text" ng-model="keyword"></div>
     <div style="display: inline-block;margin-left: 10px;">tail number:&nbsp;<input class="input-sm" type="number" ng-model="len" ng-change=""/></div>
     <div style="display: inline-block;margin-left: 10px;">auto refresh time:&nbsp;<input class="input-sm" type="number" ng-model="autoRefreshTime" ng-change=""/></div>
     <button class="btn btn-primary" ng-click="initData()">change</button>
