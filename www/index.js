@@ -1,7 +1,7 @@
 var app = angular.module("log", []);
 app.controller("logCtr", function ($scope, $http) {
     $scope.project = "openapi";
-    $scope.filePath = "";
+    $scope.filePath = "/mnt/log/abo/new/openapi/out.log";
     $scope.len = 300;
     $scope.keyword = "";
     $scope.logJsons = [];
