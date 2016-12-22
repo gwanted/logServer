@@ -56,7 +56,7 @@
                 <td>{{logJson.method}}</td>
                 <td>{{logJson.msg}}</td>
                 <td>{{logJson.userAgent}}</td>
-                <td>{{logJson.path}}</td>
+                <td><div ng-repeat="param in logJson.path">{{param}}</div></td>
             </tr>
         </table>
     </div>

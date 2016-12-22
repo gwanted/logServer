@@ -19,6 +19,20 @@ app.controller("logCtr", function ($scope, $http) {
                     if (tmp) {
                         for (var i = tmp.length - 1; i >= 0; i--) {
                             var str = JSON.parse(tmp[i]);
+                            if (str.path){
+                                var params=[];
+                                var tmpPath = str.path.split("?");
+                                if (tmpPath.length>0) {
+                                    params.push(tmpPath[0]);
+                                    if (tmpPath[1]) {
+                                        var tmp1 = tmpPath[1].split("&");
+                                        angular.forEach(tmp1, function (value) {
+                                            params.push(value)
+                                        })
+                                    }
+                                }
+                                str.path = params
+                            }
                             logsss.push(str)
                         }
                     }
