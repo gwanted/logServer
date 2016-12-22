@@ -26,7 +26,7 @@
     </style>
 </head>
 <body ng-controller="logCtr" style="padding: 25px 25px;">
-    <select class="input-lg" ng-model="filePath">
+    <select class="input-lg" ng-model="filePath" ng-change="initData()">
         <option value="/mnt/log/abo/new/openapi/out.log">openapi</option>
         <option value="/mnt/log/abo/new/api/out.log">api</option>
         <option value="/mnt/log/abo/new/adminapi/out.log">adminapi</option>
