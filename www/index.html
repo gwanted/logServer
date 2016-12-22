@@ -26,8 +26,15 @@
     </style>
 </head>
 <body ng-controller="logCtr" style="padding: 25px 25px;">
-    <div style="display: inline-block">project name:&nbsp;<input class="input-sm" type="text" ng-model="project"/></div>
-    <div style="display: inline-block;margin-left: 10px;">log location:&nbsp;<input class="input-sm" type="text" ng-model="filePath" placeholder="set it blank if you don't know the location"></div>
+    <select class="input-lg" ng-model="filePath">
+        <option value="/mnt/log/abo/new/openapi/out.log">openapi</option>
+        <option value="/mnt/log/abo/new/api/out.log">api</option>
+        <option value="/mnt/log/abo/new/adminapi/out.log">adminapi</option>
+        <option value="/mnt/log/abo/new/nurseapi/out.log">nurseapi</option>
+        <option value="/mnt/log/abo/new/mc/mc.log">mc</option>
+        <option value="/mnt/log/abo/new/doctorapi/out.log">doctorapi</option>
+        <option value="/mnt/log/abo/new/fileapi/out.log">fileapi</option>
+    </select>
     <div style="display: inline-block;margin-left: 10px;">grep keyword:&nbsp;<input class="input-sm" type="text" ng-model="keyword"></div>
     <div style="display: inline-block;margin-left: 10px;">tail number:&nbsp;<input class="input-sm" type="number" ng-model="len" ng-change=""/></div>
     <div style="display: inline-block;margin-left: 10px;">auto refresh time:&nbsp;<input class="input-sm" type="number" ng-model="autoRefreshTime" ng-change=""/></div>
@@ -44,6 +51,7 @@
                 <th>method</th>
                 <th>msg</th>
                 <th>userAgent</th>
+                <th>body</th>
                 <th>path</th>
             </tr>
             <tr ng-repeat="logJson in logJsons" ng-class="logJson.level">
@@ -56,6 +64,7 @@
                 <td>{{logJson.method}}</td>
                 <td>{{logJson.msg}}</td>
                 <td>{{logJson.userAgent}}</td>
+                <td><div ng-repeat="body in logJson.body">{{body}}</div></td>
                 <td><div ng-repeat="param in logJson.path">{{param}}</div></td>
             </tr>
         </table>

@@ -7,6 +7,17 @@ app.controller("logCtr", function ($scope, $http) {
     $scope.logJsons = [];
     $scope.autoRefreshTime = 5;
     var logsss = [];
+
+    $scope.projects = [
+        {name: 'openapi', path: '/mnt/log/abo/new/openapi/out.log'},
+        {name: 'api', path: '/mnt/log/abo/new/api/out.log'},
+        {name: 'adminapi', path: '/mnt/log/abo/new/adminapi/out.log'},
+        {name: 'nurseapi', path: '/mnt/log/abo/new/nurseapi/out.log'},
+        {name: 'mc', path: '/mnt/log/abo/new/mc/mc.log'},
+        {name: 'doctorapi', path: '/mnt/log/abo/new/doctorapi/out.log'},
+        {name: 'fileapi', path: '/mnt/log/abo/new/fileapi/out.log'}
+    ];
+
     $scope.initData = function () {
         $http.get("/logs?len="+$scope.len+"&name="+$scope.project+"&path="+$scope.filePath+"&key="+$scope.keyword, {})
             .success(function (resp) {
@@ -32,6 +43,14 @@ app.controller("logCtr", function ($scope, $http) {
                                     }
                                 }
                                 str.path = params
+                            }
+                            if (str.body){
+                                var bds = [];
+                                var tmpbd = str.body.split(",");
+                                angular.forEach(tmpbd,function (value) {
+                                    bds.push(value)
+                                });
+                                str.body = bds;
                             }
                             logsss.push(str)
                         }
