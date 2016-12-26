@@ -27,13 +27,13 @@
 </head>
 <body ng-controller="logCtr" style="padding: 25px 25px;">
     <select class="input-lg" ng-model="filePath" ng-change="initData()">
-        <option value="/mnt/log/abo/new/openapi/out.log">openapi</option>
-        <option value="/mnt/log/abo/new/api/out.log">api</option>
-        <option value="/mnt/log/abo/new/adminapi/out.log">adminapi</option>
-        <option value="/mnt/log/abo/new/nurseapi/out.log">nurseapi</option>
+        <option value="/mnt/log/abo/new/aboopenapid/out.log">openapi</option>
+        <option value="/mnt/log/abo/new/aboapid/out.log">api</option>
+        <option value="/mnt/log/abo/new/aboadminapid/out.log">adminapi</option>
+        <option value="/mnt/log/abo/new/abonurseapid/out.log">nurseapi</option>
         <option value="/mnt/log/abo/new/mc/mc.log">mc</option>
-        <option value="/mnt/log/abo/new/doctorapi/out.log">doctorapi</option>
-        <option value="/mnt/log/abo/new/fileapi/out.log">fileapi</option>
+        <option value="/mnt/log/abo/new/abodoctorapid/out.log">doctorapi</option>
+        <option value="/mnt/log/abo/new/abofileapid/out.log">fileapi</option>
     </select>
     <div style="display: inline-block;margin-left: 10px;">grep keyword:&nbsp;<input class="input-sm" type="text" ng-model="keyword"></div>
     <div style="display: inline-block;margin-left: 10px;">tail number:&nbsp;<input class="input-sm" type="number" ng-model="len" ng-change=""/></div>
