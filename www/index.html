@@ -62,7 +62,7 @@
                 <td>{{logJson.contentType}}</td>
                 <td>{{logJson.level}}</td>
                 <td>{{logJson.method}}</td>
-                <td>{{logJson.msg}}</td>
+                <td>{{logJson.msg}}<span>{{logJson.got}}{{logJson.expect}}</span></td>
                 <td>{{logJson.userAgent}}</td>
                 <td><div ng-repeat="body in logJson.body">{{body}}</div></td>
                 <td><div ng-repeat="param in logJson.path">{{param}}</div></td>
